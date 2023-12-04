@@ -15,13 +15,13 @@ class NotionOauthApi {
       final accessToken = await _getAccessToken(code);
       await _storage.write(key: 'access_token', value: accessToken);
     } else {
-      throw Exception('Authorization failed');
+      throw Exception('code is null');
     }
   }
 
   Future<String> _getAccessToken(String code) async {
     final String encoded = base64Encode(utf8
-        .encode('${Env.notionOauthClientId}:${Env.notionOauthClientSecret}}'));
+        .encode('${Env.notionOauthClientId}:${Env.notionOauthClientSecret}'));
     final response = await http.post(
       Uri.parse('https://api.notion.com/v1/oauth/token'),
       headers: {

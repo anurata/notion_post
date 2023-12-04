@@ -19,9 +19,13 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notionAuthAsync = ref.watch(notionAuthProvider);
     final notionAuthNotifier = ref.read(notionAuthProvider.notifier);
-    final notionOAuthApi = ref.read(notionOauthApiProvider);
     final webview = ref.watch(webViewProvider);
     final webviewNotifier = ref.read(webViewProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (notionAuthAsync is AsyncLoading) {
+        ref.read(notionAuthProvider.notifier).getNotionWorkspace();
+      }
+    });
     if (webview.isOpen) {
       return MaterialApp(
           home: Scaffold(
@@ -68,7 +72,9 @@ class MyApp extends ConsumerWidget {
                         children: [
                           Text('${notionAuth.workspaceName}'),
                           const SizedBox(height: 16),
-                          Image.network(notionAuth.workspaceIcon!),
+                          notionAuth.workspaceIcon != null
+                              ? Image.network(notionAuth.workspaceIcon!)
+                              : const SizedBox(),
                           const SizedBox(height: 16),
                           ElevatedButton(
                             onPressed: () async {

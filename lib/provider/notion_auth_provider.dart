@@ -1,21 +1,25 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:notion_sample/model/notion_auth.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notion_auth_provider.g.dart';
+part 'notion_auth_provider.freezed.dart';
+
+@freezed
+class NotionAuthState with _$NotionAuthState {
+  const factory NotionAuthState({
+    required bool isAuth,
+    required String? workspaceIcon,
+    required String? workspaceName,
+  }) = _NotionAuthState;
+}
 
 @riverpod
 class NotionAuth extends _$NotionAuth {
   final _storage = const FlutterSecureStorage();
   @override
   AsyncValue<NotionAuthState> build() {
-    return const AsyncValue.data(
-      NotionAuthState(
-        isAuth: false,
-        workspaceIcon: null,
-        workspaceName: null,
-      ),
-    );
+    return const AsyncValue.loading();
   }
 
   Future<void> getNotionWorkspace() async {

@@ -6,7 +6,7 @@ part of 'notion_auth_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$notionAuthHash() => r'd62c3ee719cbd297b86f69fab7ed632a5f1a3dd0';
+String _$notionAuthHash() => r'2594afe84c785775f9b6628314d8620da895b3db';
 
 /// See also [NotionAuth].
 @ProviderFor(NotionAuth)

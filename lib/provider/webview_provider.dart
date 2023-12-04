@@ -1,7 +1,18 @@
-import 'package:notion_sample/model/webview_state.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'webview_provider.g.dart';
+part 'webview_provider.freezed.dart';
+
+@freezed
+class WebViewState with _$WebViewState {
+  const factory WebViewState({
+    required bool isOpen,
+    required bool isLoading,
+    required bool isError,
+    required String errorText,
+  }) = _WebViewState;
+}
 
 @riverpod
 class WebView extends _$WebView {

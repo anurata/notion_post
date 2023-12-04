@@ -20,18 +20,14 @@ class NotionLoginWebviewWidget extends ConsumerWidget {
       initialUrlRequest: URLRequest(url: Uri.parse(Env.notionOauthUrl)),
       initialOptions: InAppWebViewGroupOptions(
           crossPlatform: InAppWebViewOptions(
-            javaScriptEnabled: true,
             useShouldOverrideUrlLoading: true,
             useOnLoadResource: true,
             clearCache: true,
             userAgent: Platform.isIOS
-                ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15' +
-                    ' (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1'
-                : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) ' +
-                    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36',
+                ? 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1'
+                : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Mobile Safari/537.36',
           ),
-          android: AndroidInAppWebViewOptions(
-              initialScale: 100, disableDefaultErrorPage: true)),
+          android: AndroidInAppWebViewOptions(disableDefaultErrorPage: true)),
       onWebViewCreated: (controller) {
         webViewController = controller;
       },
@@ -43,9 +39,10 @@ class NotionLoginWebviewWidget extends ConsumerWidget {
             if (url
                 .toString()
                 .startsWith('notionsample://oauth/callback?code')) {
+              print('url: $url');
               await notionOauthApi.authenticate(url.toString());
               webViewNotifier.hide();
-              ref.invalidate(notionAuthProvider);
+              ref.read(notionAuthProvider.notifier).getNotionWorkspace();
             }
           } catch (e) {
             throw Exception(e);
@@ -56,7 +53,6 @@ class NotionLoginWebviewWidget extends ConsumerWidget {
         webViewNotifier.loaded();
       },
       onLoadError: (controller, url, code, message) {
-        // because onLoadError is also called when the user is redirected to the callback url
         // allow redirect to notionsample://oauth/callback
         if (url.toString().startsWith('notionsample://oauth/callback?code')) {
           return;
