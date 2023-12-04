@@ -8,15 +8,14 @@
   <body>
     <script>
       var urlParams = new URLSearchParams(window.location.search);
-      var authCode = urlParams.get("code");
-    //   var authState = urlParams.get("state");
-      if (authCode == null){
+      var code = urlParams.get("code");
+      if (code == null){
         window.location.replace(
           "https://taichiro-s.github.io/notion_sample/redirects/fallback.html"
         );
       } else {
         window.location.replace(
-          "notionsample://oauth/callback?code=" + authCode
+          "notionsample://oauth/callback?code=" + code
         );
       }
     </script>
