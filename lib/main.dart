@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_sample/api/notion_oauth_api.dart';
 import 'package:notion_sample/provider/notion_auth_provider.dart';
 import 'package:notion_sample/provider/webview_provider.dart';
+import 'package:notion_sample/widget/notion_database_list_widget.dart';
 import 'package:notion_sample/widget/notion_login_webview_widget.dart';
 
 void main() {
@@ -54,49 +54,53 @@ class MyApp extends ConsumerWidget {
     } else {
       return MaterialApp(
           home: Scaffold(
-              appBar: AppBar(
-                title: const Text('Notion Sample'),
-              ),
-              body: notionAuthAsync.when(
-                error: (error, stackTrace) => Center(
-                  child: Text('Error: $error'),
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          title: const Text('Notion Sample'),
+        ),
+        body: notionAuthAsync.when(
+          error: (error, stackTrace) => Center(
+            child: Text('Error: $error'),
+          ),
+          loading: () => const Center(
+            child: CircularProgressIndicator(),
+          ),
+          data: (notionAuth) {
+            if (notionAuth.isAuth) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('${notionAuth.workspaceName}'),
+                    const SizedBox(height: 10),
+                    notionAuth.workspaceIcon != null
+                        ? Image.network(notionAuth.workspaceIcon!)
+                        : const SizedBox(),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await notionAuthNotifier.deleteNotionWorkspace();
+                      },
+                      child: const Text('連携を解除'),
+                    ),
+                    const SizedBox(height: 10),
+                    const NotionDatabaseListWidget()
+                  ],
                 ),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
+              );
+            } else {
+              return Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    webviewNotifier.show();
+                  },
+                  child: const Text('Notionと連携する'),
                 ),
-                data: (notionAuth) {
-                  if (notionAuth.isAuth) {
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('${notionAuth.workspaceName}'),
-                          const SizedBox(height: 16),
-                          notionAuth.workspaceIcon != null
-                              ? Image.network(notionAuth.workspaceIcon!)
-                              : const SizedBox(),
-                          const SizedBox(height: 16),
-                          ElevatedButton(
-                            onPressed: () async {
-                              await notionAuthNotifier.deleteNotionWorkspace();
-                            },
-                            child: const Text('連携を解除'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          webviewNotifier.show();
-                        },
-                        child: const Text('Notionと連携する'),
-                      ),
-                    );
-                  }
-                },
-              )));
+              );
+            }
+          },
+        ),
+      ));
     }
   }
 }

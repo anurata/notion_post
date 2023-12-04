@@ -39,7 +39,6 @@ class NotionLoginWebviewWidget extends ConsumerWidget {
             if (url
                 .toString()
                 .startsWith('notionsample://oauth/callback?code')) {
-              print('url: $url');
               await notionOauthApi.authenticate(url.toString());
               webViewNotifier.hide();
               ref.read(notionAuthProvider.notifier).getNotionWorkspace();
