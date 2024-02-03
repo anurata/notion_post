@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:notion_sample/env/env.dart';
+import 'package:notion_post/env/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notion_oauth_api.g.dart';

@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_sample/api/notion_oauth_api.dart';
-import 'package:notion_sample/env/env.dart';
-import 'package:notion_sample/provider/notion_auth_provider.dart';
-import 'package:notion_sample/provider/webview_provider.dart';
+import 'package:notion_post/api/notion_oauth_api.dart';
+import 'package:notion_post/env/env.dart';
+import 'package:notion_post/provider/notion_auth_provider.dart';
+import 'package:notion_post/provider/webview_provider.dart';
 
 class NotionLoginWebviewWidget extends ConsumerWidget {
   const NotionLoginWebviewWidget({super.key});

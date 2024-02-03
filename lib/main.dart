@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_sample/api/notion_oauth_api.dart';
-import 'package:notion_sample/env/env.dart';
-import 'package:notion_sample/provider/notion_auth_provider.dart';
-import 'package:notion_sample/provider/webview_provider.dart';
-import 'package:notion_sample/widget/notion_database_list_widget.dart';
-import 'package:notion_sample/widget/notion_login_webview_widget.dart';
+import 'package:notion_post/api/notion_oauth_api.dart';
+//import 'package:notion_sample/env/env.dart';
+import 'package:notion_post/provider/notion_auth_provider.dart';
+import 'package:notion_post/provider/webview_provider.dart';
+import 'package:notion_post/widget/notion_database_list_widget.dart';
+import 'package:notion_post/widget/notion_login_webview_widget.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 

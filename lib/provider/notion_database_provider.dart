@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:notion_sample/api/notion_database_api.dart';
+import 'package:notion_post/api/notion_database_api.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notion_database_provider.g.dart';

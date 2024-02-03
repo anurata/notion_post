@@ -2,7 +2,7 @@ import 'package:envied/envied.dart';
 
 part 'env.g.dart';
 
-@Envied(path: '.env')
+@Envied(path: '.env.dev')
 abstract class Env {
   @EnviedField(varName: 'NOTION_OAUTH_CLIENT_ID')
   static const String notionOauthClientId = _Env.notionOauthClientId;

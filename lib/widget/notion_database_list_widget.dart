@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:notion_sample/provider/notion_database_provider.dart';
+import 'package:notion_post/provider/notion_database_provider.dart';
 
 class NotionDatabaseListWidget extends ConsumerWidget {
   const NotionDatabaseListWidget({super.key});
