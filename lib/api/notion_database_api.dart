@@ -63,14 +63,41 @@ class NotionDatabaseApi {
           "type": "database_id",
           "database_id": databaseId,
         },
-        'properties': {
-          'タイトル': {
+        "properties": {
+          //   'タイトル': {
+
+          "名前": {
             'title': [
               {
                 'text': {
-                  'content': title,
+                  // 'content': title,
+                  'content': "テスト",
                 },
               },
+            ],
+          },
+          "タイトル": {
+            'rich_text': [
+              // {
+              //   'text': {
+              //     // 'content': title,
+              //     'content': "テスト",
+              //   },
+              // },
+              {
+                "type": "text",
+                "text": {"content": "This is an ", "link": null},
+                "annotations": {
+                  "bold": false,
+                  "italic": false,
+                  "strikethrough": false,
+                  "underline": false,
+                  "code": false,
+                  "color": "default"
+                },
+                "plain_text": "This is an ",
+                "href": null
+              }
             ],
           },
         },
@@ -102,7 +129,9 @@ class NotionDatabaseApi {
         List<String> titles = [];
         for (var page in results) {
           var titleProperty =
-              page['properties']['タイトル']['title'] as List<dynamic>;
+              //    page['properties']['名前']['title'] as List<dynamic>;
+              page['properties']['タイトル']['rich_text'] as List<dynamic>;
+          // page['properties']['Name']['title'] as List<dynamic>;
           if (titleProperty.isNotEmpty) {
             titles.add(titleProperty[0]['text']['content'] as String);
           }
