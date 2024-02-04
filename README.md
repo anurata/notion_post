@@ -1,3 +1,2 @@
-# notion_sample
-
+# notion_post
 A new Flutter project.

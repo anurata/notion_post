@@ -6,6 +6,8 @@ buildscript {
     }
 
     dependencies {
+                // Gradleプラグインのバージョンをアップデート
+        classpath "com.android.tools.build:gradle:7.4.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }

@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notion_post/api/notion_oauth_api.dart';
-//import 'package:notion_sample/env/env.dart';
+import 'package:notion_post/env/env.dart';
 import 'package:notion_post/provider/notion_auth_provider.dart';
 import 'package:notion_post/provider/webview_provider.dart';
 import 'package:notion_post/widget/notion_database_list_widget.dart';
@@ -35,8 +35,7 @@ class _MyApp extends ConsumerState<MyApp> {
 
   Future<void> initUniLinks() async {
     _sub = linkStream.listen((link) async {
-      if (link != null &&
-          link.startsWith('notionsample://oauth/callback?code')) {
+      if (link != null && link.startsWith('notionpost://oauth/callback?code')) {
         await ref.read(notionOauthApiProvider).authenticate(link);
         ref.invalidate(notionAuthProvider);
       }
@@ -86,7 +85,7 @@ class _MyApp extends ConsumerState<MyApp> {
           home: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Notion Sample'),
+          title: const Text('Notion Post'),
         ),
         body: notionAuthAsync.when(
           error: (error, stackTrace) => Center(

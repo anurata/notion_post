@@ -32,7 +32,7 @@ class NotionOauthApi {
       body: jsonEncode({
         'grant_type': 'authorization_code',
         'code': code,
-        'redirect_uri': 'https://taichiro-s.github.io/notion_sample/redirects',
+        'redirect_uri': 'https://anurata.github.io/notion_post/redirects',
       }),
     );
 

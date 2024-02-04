@@ -1,4 +1,4 @@
-package com.notionsample.notion_sample
+package com.notionpost.notion_post
 
 import io.flutter.embedding.android.FlutterActivity
 
