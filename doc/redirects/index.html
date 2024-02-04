@@ -6,7 +6,6 @@
     <title>Redirect</title>
   </head>
   <body>
-    <h2>自動で閉じない場合は左上の「完了」ボタンで画面を閉じてください。</h2>
     <script>
       var urlParams = new URLSearchParams(window.location.search);
       var code = urlParams.get("code");
@@ -16,7 +15,7 @@
         );
       } else {
         window.location.replace(
-          "notionpost://oauth/callback?code=" + code
+          "notionsample://oauth/callback?code=" + code
         );
       }
     </script>
