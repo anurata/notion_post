@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notion_post/provider/notion_database_provider.dart';
 
 class NotionDatabaseListWidget extends ConsumerWidget {
-  NotionDatabaseListWidget({super.key});
-  final TextEditingController _controller = TextEditingController();
+  const NotionDatabaseListWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,7 +14,7 @@ class NotionDatabaseListWidget extends ConsumerWidget {
     final isInserting =
         ref.watch(notionDatabaseProvider.select((state) => state.isInserting));
     final notionDatabaseNotifier = ref.read(notionDatabaseProvider.notifier);
-    //final TextEditingController _controller = TextEditingController();
+    final TextEditingController controller = TextEditingController();
     final bottomSpace = MediaQuery.of(context).viewInsets.bottom;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (notionDatabaseTitles is AsyncLoading && !isInserting) {
@@ -32,39 +31,26 @@ class NotionDatabaseListWidget extends ConsumerWidget {
               Padding(
                   padding: const EdgeInsets.all(16),
                   child: TextField(
-                    controller: _controller,
-                    maxLines: 5, // または適切な行数を指定
-
-                    onTap: () => notionDatabaseNotifier.startInput(),
+                    controller: controller,
+                           onTap: () => notionDatabaseNotifier.startInput(),
                     decoration: InputDecoration(
                       prefixIcon: isInputting
                           ? IconButton(
                               icon: const Icon(Icons.arrow_back),
                               onPressed: () {
-                                // FocusScope.of(context).unfocus();
-                                // notionDatabaseNotifier.endInput();
+                                FocusScope.of(context).unfocus();
+                                notionDatabaseNotifier.endInput();
                               })
                           : null,
                       border: const OutlineInputBorder(),
                       hintText: 'タイトル',
                     ),
-                    //onSubmitted: (value) {
-                    //  notionDatabaseNotifier.insertTitle(title: value);
-                    //  notionDatabaseNotifier.endInput();
-                    //  _controller.clear();
-                    //},
+                    onSubmitted: (value) {
+                      notionDatabaseNotifier.insertTitle(title: value);
+                      notionDatabaseNotifier.endInput();
+                      controller.clear();
+                    },
                   )),
-              ElevatedButton(
-                onPressed: () {
-                  final value = _controller.text.trim();
-                  if (value.isNotEmpty) {
-                    notionDatabaseNotifier.insertTitle(title: value);
-                    notionDatabaseNotifier.endInput();
-                    _controller.clear();
-                  }
-                },
-                child: const Text('投稿'),
-              ),
               notionDatabaseTitles.when(
                 data: (data) {
                   if (data.isEmpty) {

@@ -96,26 +96,27 @@ class _MyApp extends ConsumerState<MyApp> {
           ),
           data: (notionAuth) {
             if (notionAuth.isAuth) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('${notionAuth.workspaceName}'),
-                    const SizedBox(height: 10),
-                    notionAuth.workspaceIcon != null
-                        ? Image.network(notionAuth.workspaceIcon!)
-                        : const SizedBox(),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () async {
-                        await notionAuthNotifier.deleteNotionWorkspace();
-                      },
-                      child: const Text('連携を解除'),
-                    ),
-                    const SizedBox(height: 10),
-                    const NotionDatabaseListWidget()
-                  ],
-                ),
+              //return Center(
+              return Column(
+                //  child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text('${notionAuth.workspaceName}'),
+                  const SizedBox(height: 10),
+                  notionAuth.workspaceIcon != null
+                      ? Image.network(notionAuth.workspaceIcon!)
+                      : const SizedBox(),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await notionAuthNotifier.deleteNotionWorkspace();
+                    },
+                    child: const Text('連携を解除'),
+                  ),
+                  const SizedBox(height: 10),
+                  NotionDatabaseListWidget()
+                ],
+                //),
               );
             } else {
               return Center(
